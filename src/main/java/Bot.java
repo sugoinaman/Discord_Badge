@@ -1,17 +1,31 @@
-import Games.Game;
-import commands.InviteCommand;
+import commands.SlashCommands.Hello;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bot {
+
+    private static Dotenv config = null;
+
+
     public static void main(String[] args) {
-        JDA jda= JDABuilder.createLight("MTA3NTMzMzA1MzQ2MDc5MTQwOQ.G3krtT.fe0oZ-PKEGvToW8Hg_5tY0VpDO4DsvDQZYhMbk", GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.MESSAGE_CONTENT).
+        config = Dotenv.configure().load();
+        String token = config.get("TOKEN");
+        String guildid=config.get("GUILD");
+        ;
+        JDA jda = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT).
                 setActivity(Activity.watching("you")).
                 build();
-        jda.addEventListener(new InviteCommand());
-        jda.addEventListener(new Game());
+        jda.addEventListener(new Hello());
+
+        Guild guild=jda.getGuildById(guildid);
+        if(guild!=null){
+            guild.upsertCommand("Something about hello","THIS IS THE STRING DESCRIPTION").queue();
+        }
+
 
     }
 }
