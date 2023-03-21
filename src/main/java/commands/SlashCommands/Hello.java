@@ -10,7 +10,7 @@ public class Hello extends ListenerAdapter {
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
 
         if (event.getName().equals("hello")) {
-            event.reply("EASY DEV BADGE HERE").queue();
+            event.reply("Have to wait around 24 hours and keep the code running").queue();
         }
     }
 }
