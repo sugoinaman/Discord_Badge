@@ -2,13 +2,15 @@ package commands.SlashCommands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import org.jetbrains.annotations.NotNull;
 
 public class Hello extends ListenerAdapter {
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        super.onSlashCommandInteraction(event);
-        if(event.getName().equals("hi")){
-            event.reply("Hello"+event.getUser().getName());
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+
+        if (event.getName().equals("hello")) {
+            event.reply("EASY DEV BADGE HERE").queue();
         }
     }
 }
